@@ -6,6 +6,7 @@ import { exec } from 'child_process';
 const ID = 'mcp';
 
 async function init(router: Router): Promise<void> {
+	console.log('<<<< [MCP-BACKEND-PATCH] v1.1 LOADED >>>>'); // <-- ADD THIS LINE
   mcpInit(router);
   // @ts-ignore
   router.post('/open-settings', (request: Request, response) => {

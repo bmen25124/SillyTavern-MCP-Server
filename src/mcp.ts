@@ -148,6 +148,7 @@ async function startMcpServer(serverName: string, config: McpServerEntry) {
         url: config.url,
         env: config.env || {},
         transport: transportType,
+		headers: (config as any).headers || {}, // <-- ADD THIS LINE
       },
       createClientInfo(serverName),
       {
