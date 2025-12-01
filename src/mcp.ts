@@ -1,21 +1,11 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import { Router, Request as ExpressRequest, Response, json } from 'express';
+import { Router, Response, json } from 'express';
 import { sync as writeFileAtomicSync } from 'write-file-atomic';
 import { McpClient, Implementation, McpError, ErrorCode } from './McpClient';
+import { UserDirectoryList, Request } from './types';
 
 // Extend the Express Request type to include user property
-export interface Request extends ExpressRequest {
-  user: {
-    directories: UserDirectoryList;
-    [key: string]: any;
-  };
-}
-
-export interface UserDirectoryList {
-  root: string;
-  [key: string]: string;
-}
 
 export const jsonParser = json({ limit: '200mb' });
 

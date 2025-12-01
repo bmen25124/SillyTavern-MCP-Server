@@ -1,5 +1,6 @@
 import { Router } from 'express';
-import { MCP_SETTINGS_FILE, mcpInit, readMcpSettings, Request } from './mcp';
+import { MCP_SETTINGS_FILE, mcpInit, readMcpSettings } from './mcp';
+import { Request } from './types';
 import path from 'node:path';
 import { exec } from 'child_process';
 
