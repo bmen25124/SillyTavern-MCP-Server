@@ -17,6 +17,7 @@ interface McpServerEntry {
   env: Record<string, string>;
   type: string;
   url?: string;
+  headers?: Record<string, string>;
 }
 
 interface McpServerDictionary {
@@ -138,6 +139,7 @@ async function startMcpServer(serverName: string, config: McpServerEntry) {
         url: config.url,
         env: config.env || {},
         transport: transportType,
+        headers: config.headers || {},
       },
       createClientInfo(serverName),
       {

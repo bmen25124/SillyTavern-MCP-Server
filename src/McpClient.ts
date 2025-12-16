@@ -100,6 +100,7 @@ export interface McpClientConfig {
   // For HTTP/SSE
   url?: string;
   transport?: 'stdio' | 'streamableHttp' | 'sse';
+  headers?: Record<string, string>;
 }
 
 export interface Annotated {
@@ -316,6 +317,7 @@ export class McpClient {
             'Content-Type': 'application/json',
             Accept: 'application/json, text/event-stream',
             'MCP-Protocol-Version': PROTOCOL_VERSION,
+            ...this.config.headers,
           };
           if (this.sessionId) {
             headers['Mcp-Session-Id'] = this.sessionId;
@@ -476,6 +478,7 @@ export class McpClient {
           'Content-Type': 'application/json',
           Accept: 'application/json, text/event-stream',
           'MCP-Protocol-Version': this.negotiatedProtocolVersion,
+          ...this.config.headers,
         };
         // For sse transport, POST to postEndpoint (or httpEndpoint) with sessionId as query param
         let postUrl = this.postEndpoint || this.httpEndpoint;
@@ -523,6 +526,7 @@ export class McpClient {
           'Content-Type': 'application/json',
           Accept: 'application/json, text/event-stream',
           'MCP-Protocol-Version': this.negotiatedProtocolVersion,
+          ...this.config.headers,
         };
         if (this.sessionId) {
           headers['Mcp-Session-Id'] = this.sessionId;
