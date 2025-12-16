@@ -269,7 +269,7 @@ export async function mcpInit(router: Router): Promise<void> {
             error: 'Server command is required for stdio transport',
           });
         }
-      } else if (transportType === 'http' || transportType === 'sse') {
+      } else if (transportType === 'streamableHttp' || transportType === 'sse') {
         if (!config.url || typeof config.url !== 'string') {
           return response.status(400).json({
             error: `Server URL is required for ${transportType} transport`,
