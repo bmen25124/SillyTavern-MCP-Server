@@ -182,16 +182,20 @@ export class McpClient {
           stdio: ['pipe', 'pipe', 'pipe'],
         });
 
+        let stdoutBuffer = '';
         this.proc.stdout?.on('data', (data) => {
-          const lines = data.toString().split('\n');
+          stdoutBuffer += data.toString();
+          const lines = stdoutBuffer.split('\n');
+          stdoutBuffer = lines.pop() ?? '';
+
           for (const line of lines) {
-            if (!line) continue;
+            if (!line.trim()) continue;
             try {
               const message = JSON.parse(line);
               this.handleMessage(message);
             } catch (error) {
               const mcpError = new McpError(ErrorCode.ParseError, 'Failed to parse message');
-              console.error('Failed to parse MCP message:', mcpError);
+              console.error('Failed to parse MCP message:', mcpError, { line, error });
             }
           }
         });
